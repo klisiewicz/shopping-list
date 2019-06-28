@@ -1,0 +1,11 @@
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/navGraph"
+    app:startDestination="@id/shoppingListFragment">
+
+    <fragment
+        android:id="@+id/shoppingListFragment"
+        android:name="pl.karollisiewicz.shopping.ui.list.ShoppingListFragment"
+        android:label="@string/app_name">
+    </fragment>
+</navigation>

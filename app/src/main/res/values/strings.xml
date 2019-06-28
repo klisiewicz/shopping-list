@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Shopping List</string>
+    <string name="no_shop_lists">You have no shop lists yet</string>
+    <string name="shopping_lists_all">All</string>
+    <string name="shopping_lists_active">Active</string>
+    <string name="shopping_lists_archived">Archived</string>
+    <string name="filter">Filter</string>
 </resources>
