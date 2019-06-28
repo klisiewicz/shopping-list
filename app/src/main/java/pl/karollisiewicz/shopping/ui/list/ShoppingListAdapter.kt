@@ -10,19 +10,16 @@ import kotlinx.android.synthetic.main.list_item_shopping_list.view.*
 import pl.karollisiewicz.shopping.R
 import pl.karollisiewicz.shopping.domain.ShoppingList
 
-class ShoppingListAdapter :
+class ShoppingListAdapter(
+    private val shoppingListSelectionListener: ((ShoppingList) -> Unit) = {}
+) :
     ListAdapter<ShoppingList, ShoppingListAdapter.ViewHolder>(RepoDiff()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
-        ViewHolder(
-            LayoutInflater.from(parent.context).inflate(
-                R.layout.list_item_shopping_list,
-                parent,
-                false
-            )
-        ) { shoppingList ->
+        ViewHolder(parent.inflateView(), shoppingListSelectionListener)
 
-        }
+    private fun ViewGroup.inflateView(): View =
+        LayoutInflater.from(context).inflate(R.layout.list_item_shopping_list, this, false)
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) =
         holder.bindTo(getItem(position))
@@ -36,6 +33,9 @@ class ShoppingListAdapter :
         fun bindTo(shoppingList: ShoppingList) {
             with(itemView) {
                 name.text = shoppingList.name
+                setOnClickListener {
+                    shoppingListSelectionListener(shoppingList)
+                }
             }
         }
     }

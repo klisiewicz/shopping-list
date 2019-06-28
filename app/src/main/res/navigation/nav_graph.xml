@@ -7,5 +7,33 @@
         android:id="@+id/shoppingListFragment"
         android:name="pl.karollisiewicz.shopping.ui.list.ShoppingListFragment"
         android:label="@string/app_name">
+        <action
+            android:id="@+id/actionShoppingListToModify"
+            app:destination="@id/shoppingListModifyFragment" />
+
+        <action
+            android:id="@+id/actionShoppingListToDetail"
+            app:destination="@id/shoppingListDetailFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/shoppingListDetailFragment"
+        android:name="pl.karollisiewicz.shopping.ui.detail.ShoppingListDetailFragment"
+        android:label="Shopping List Details">
+
+        <action
+            android:id="@+id/actionShoppingListDetailToModify"
+            app:destination="@id/shoppingListModifyFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/shoppingListModifyFragment"
+        android:name="pl.karollisiewicz.shopping.ui.detail.ShoppingListModifyFragment"
+        android:label="Shopping List Details">
+        <action
+            android:id="@+id/actionModifyToShoppingList"
+            app:destination="@id/shoppingListFragment" />
+    </fragment>
+
 </navigation>

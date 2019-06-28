@@ -4,6 +4,6 @@
     <item
         android:id="@+id/filterShoppingLists"
         android:icon="@drawable/ic_filter"
-        android:title="@string/filter"
+        android:title="@string/shopping_list_filter"
         app:showAsAction="always" />
 </menu>
