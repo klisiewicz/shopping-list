@@ -17,8 +17,9 @@ class ShoppingListViewModel(
         value = ShoppingListLoading
     }
     val viewState: LiveData<ShoppingListViewState> = _viewState
+    var filter: ShoppingList.Filter = ShoppingList.Filter.ALL
 
-    fun loadShoppingLists(filter: ShoppingList.Filter = ShoppingList.Filter.ALL) {
+    fun loadShoppingLists() {
         viewModelScope.launch {
             try {
                 tryToLoadShoppingLists()
@@ -29,7 +30,7 @@ class ShoppingListViewModel(
     }
 
     private suspend fun tryToLoadShoppingLists() {
-        val shoppingLists = shoppingListRepository.findAll()
+        val shoppingLists = shoppingListRepository.findAll(filter)
         _viewState.value =
             if (shoppingLists.isNotEmpty()) ShoppingListLoaded(shoppingLists.map {
                 it.toViewEntity()
@@ -44,7 +45,7 @@ class ShoppingListViewModel(
 
 private fun ShoppingList.toViewEntity() =
     ShoppingListViewEntity(
-        id = id.toString(),
+        id = id,
         name = name,
         activeItems = items.filter { it.isNotCompleted }.joinToString(separator = ", ") { it.name },
         numberOfCompletedItems = items.count { it.isCompleted }.toString()

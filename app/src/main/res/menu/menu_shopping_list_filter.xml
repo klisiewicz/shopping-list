@@ -7,6 +7,6 @@
         android:id="@+id/active"
         android:title="@string/shopping_list_active" />
     <item
-        android:id="@+id/completed"
+        android:id="@+id/archived"
         android:title="@string/shopping_list_archived" />
 </menu>

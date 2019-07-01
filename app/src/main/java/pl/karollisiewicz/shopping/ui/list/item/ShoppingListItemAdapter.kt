@@ -1,16 +1,16 @@
 package pl.karollisiewicz.shopping.ui.list.item
 
-import android.graphics.Paint
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatCheckBox
-import androidx.appcompat.widget.AppCompatEditText
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.list_item_shopping_item.view.*
 import pl.karollisiewicz.shopping.R
 import pl.karollisiewicz.shopping.domain.ShoppingList
+import pl.karollisiewicz.shopping.ui.common.clearStrikeThrough
 import pl.karollisiewicz.shopping.ui.common.inflate
+import pl.karollisiewicz.shopping.ui.common.strikeThrough
 
 typealias ShoppingListItemAdded = (item: ShoppingList.Item) -> Unit
 typealias ShoppingListItemRemoved = (item: ShoppingList.Item) -> Unit
@@ -107,7 +107,7 @@ private class ShoppingListItemViewHolder(
     }
 
     private fun bindCompletedCheckbox(item: ShoppingList.Item) {
-        with (itemView.completed) {
+        with(itemView.completed) {
             clearOnCheckedChangeListener()
             isChecked = item.isCompleted
             setOnCheckedChangeListener { _, isChecked ->
@@ -121,14 +121,6 @@ private class ShoppingListItemViewHolder(
             onRemoved(item)
         }
     }
-}
-
-private fun AppCompatEditText.strikeThrough() {
-    paintFlags = paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-}
-
-private fun AppCompatEditText.clearStrikeThrough() {
-    paintFlags = paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
 }
 
 private fun AppCompatCheckBox.clearOnCheckedChangeListener() {

@@ -13,9 +13,9 @@ interface ShoppingListDao {
     @Query("SELECT * FROM SHOPPING_LISTS WHERE id = :shoppingListId")
     suspend fun getById(shoppingListId: String): ShoppingListEntity?
 
-    @Query("SELECT * FROM SHOPPING_LISTS")
+    @Query("SELECT * FROM SHOPPING_LISTS ORDER BY update_date DESC")
     suspend fun getAll(): List<ShoppingListEntity>
 
-    @Query("SELECT * FROM SHOPPING_LISTS WHERE active = :isActive")
+    @Query("SELECT * FROM SHOPPING_LISTS WHERE active = :isActive ORDER BY update_date DESC")
     suspend fun getByActiveness(isActive: Boolean): List<ShoppingListEntity>
 }

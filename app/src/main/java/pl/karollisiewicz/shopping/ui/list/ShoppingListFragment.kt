@@ -13,6 +13,7 @@ import kotlinx.android.synthetic.main.fragment_shopping_list.*
 import kotlinx.android.synthetic.main.layout_error.*
 import org.koin.android.viewmodel.ext.android.viewModel
 import pl.karollisiewicz.shopping.R
+import pl.karollisiewicz.shopping.domain.ShoppingList
 import pl.karollisiewicz.shopping.ui.common.hideChildren
 import pl.karollisiewicz.shopping.ui.common.show
 
@@ -29,7 +30,7 @@ internal class ShoppingListFragment : Fragment() {
         }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_shopping_list_filter, menu)
+        inflater.inflate(R.menu.menu_shopping_list, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem) =
@@ -46,12 +47,23 @@ internal class ShoppingListFragment : Fragment() {
 
         PopupMenu(requireContext(), anchor).run {
             menuInflater.inflate(R.menu.menu_shopping_list_filter, menu)
-            setOnMenuItemClickListener {
+            setOnMenuItemClickListener { menu ->
+                with(shoppingListViewModel) {
+                    filter = menu.filter
+                    loadShoppingLists()
+                }
                 true
             }
             show()
         }
     }
+
+    private val MenuItem.filter: ShoppingList.Filter
+        get() = when(itemId) {
+            R.id.active -> ShoppingList.Filter.ACTIVE
+            R.id.archived -> ShoppingList.Filter.ARCHIVED
+            else -> ShoppingList.Filter.ALL
+        }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -121,6 +133,9 @@ internal class ShoppingListFragment : Fragment() {
         shoppingListErrorLayout.run {
             show()
             setError(errorMessageId)
+            buttonRetry.setOnClickListener {
+                shoppingListViewModel.loadShoppingLists()
+            }
         }
     }
 

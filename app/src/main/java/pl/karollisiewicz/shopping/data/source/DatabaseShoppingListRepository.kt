@@ -7,6 +7,7 @@ import pl.karollisiewicz.shopping.data.source.database.ShoppingListEntity
 import pl.karollisiewicz.shopping.data.source.database.ShoppingListItemDao
 import pl.karollisiewicz.shopping.data.source.database.ShoppingListItemEntity
 import pl.karollisiewicz.shopping.domain.ShoppingList
+import pl.karollisiewicz.shopping.domain.ShoppingList.Filter.*
 import pl.karollisiewicz.shopping.domain.ShoppingListRepository
 
 class DatabaseShoppingListRepository(
@@ -15,13 +16,18 @@ class DatabaseShoppingListRepository(
     private val dispatcher: CoroutineDispatcher
 ) : ShoppingListRepository {
 
-    override suspend fun findAll(): List<ShoppingList> = withContext(dispatcher) {
-        val shoppingList = shoppingListDao.getAll()
-        return@withContext shoppingList.map {
-            val shoppingListItems = shoppingListItemDao.getByShoppingList(it.id)
-            it.toDomain(shoppingListItems)
+    override suspend fun findAll(filter: ShoppingList.Filter): List<ShoppingList> =
+        withContext(dispatcher) {
+            val shoppingLists = when (filter) {
+                ALL -> shoppingListDao.getAll()
+                ACTIVE -> shoppingListDao.getByActiveness(true)
+                ARCHIVED -> shoppingListDao.getByActiveness(false)
+            }
+            return@withContext shoppingLists.map {
+                val shoppingListItems = shoppingListItemDao.getByShoppingList(it.id)
+                it.toDomain(shoppingListItems)
+            }
         }
-    }
 
     override suspend fun findBy(id: String): ShoppingList? = withContext(dispatcher) {
         val shoppingList = shoppingListDao.getById(id) ?: return@withContext null

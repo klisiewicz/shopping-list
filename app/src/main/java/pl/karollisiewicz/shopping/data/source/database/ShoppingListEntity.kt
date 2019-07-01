@@ -6,7 +6,8 @@ import androidx.room.*
 class ShoppingListEntity(
     @PrimaryKey @ColumnInfo(name = "id") var id: String,
     @ColumnInfo(name = "name") var name: String,
-    @ColumnInfo(name = "active") var isActive: Boolean
+    @ColumnInfo(name = "active") var isActive: Boolean,
+    @ColumnInfo(name = "update_date") var updateDate: Long = System.currentTimeMillis()
 )
 
 @Entity(
