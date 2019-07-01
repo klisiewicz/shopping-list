@@ -20,7 +20,7 @@ typealias ShoppingListItemRenamed = (item: ShoppingList.Item, newName: String) -
 private const val VIEW_TYPE_SHOPPING_ITEM = 0
 private const val VIEW_TYPE_ADD_BUTTON = 1
 
-class ShoppingListItemAdapter(
+class ActiveShoppingListItemAdapter(
     private val onShoppingListItemAdded: ShoppingListItemAdded,
     private val onShoppingListItemRemoved: ShoppingListItemRemoved,
     private val onShoppingListItemCompleted: ShoppingListItemCompleted,
@@ -28,7 +28,6 @@ class ShoppingListItemAdapter(
 ) : ListAdapter<ShoppingList.Item, RecyclerView.ViewHolder>(
     ShoppingListItemDiff
 ) {
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
         when (viewType) {
             VIEW_TYPE_ADD_BUTTON -> createAddItemViewHolder(parent)
@@ -87,11 +86,9 @@ private class ShoppingListItemViewHolder(
 ) : RecyclerView.ViewHolder(itemView) {
 
     fun bindTo(item: ShoppingList.Item) {
-        with(itemView) {
-            bindName(item)
-            bindCompletedCheckbox(item)
-            setOnRemoveClickListener(item)
-        }
+        bindName(item)
+        bindCompletedCheckbox(item)
+        setOnRemoveClickListener(item)
     }
 
     private fun bindName(item: ShoppingList.Item) {

@@ -23,7 +23,7 @@ class ShoppingListDetailViewModel(
     fun loadShoppingList(shoppingListId: String?) {
         viewModelScope.launch {
             if (shoppingListId != null) {
-                shoppingList = shoppingListRepository.findBy(shoppingListId)!!
+                shoppingList = shoppingListRepository.findBy(shoppingListId) ?: ShoppingList()
             }
             _viewState.value = ShoppingListDetailViewState.Loaded(shoppingList)
         }
@@ -37,9 +37,8 @@ class ShoppingListDetailViewModel(
     }
 
     fun archive() = viewModelScope.launch {
-        performAndUpdate {
-            shoppingList.archive()
-        }
+        if (shoppingList.isActive)
+            performAndUpdate { shoppingList.archive() }
     }
 
     fun add(item: ShoppingList.Item) = viewModelScope.launch {
@@ -68,7 +67,7 @@ class ShoppingListDetailViewModel(
 
     fun activate(item: ShoppingList.Item) = viewModelScope.launch {
         performAndUpdate {
-            shoppingList.activate(item)
+            shoppingList.activateItem(item)
         }
     }
 
@@ -82,6 +81,7 @@ class ShoppingListDetailViewModel(
         _viewState.value = ShoppingListDetailViewState.Loading
         shoppingList = block()
         _viewState.value = ShoppingListDetailViewState.Loaded(shoppingList)
-        shoppingListRepository.save(shoppingList)
+        if (shoppingList.isNotEmpty())
+            shoppingListRepository.save(shoppingList)
     }
 }

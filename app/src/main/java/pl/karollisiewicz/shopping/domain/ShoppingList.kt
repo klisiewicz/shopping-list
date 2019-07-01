@@ -10,17 +10,18 @@ data class ShoppingList(
 ) {
     fun rename(newName: String): ShoppingList = copy(name = newName)
 
-    fun archive(): ShoppingList = copy(isActive = false)
-
-    fun activate(item: Item): ShoppingList {
-        val activeItem = item.copy(isCompleted = false)
-        return copy(items = items.replace(activeItem))
-    }
+    fun archive(): ShoppingList =
+        copy(isActive = false, items = items.map { it.copy(isCompleted = true) })
 
     fun addItem(item: Item): ShoppingList = copy(items = items.toMutableList().apply { add(item) })
 
     fun removeItem(item: Item): ShoppingList =
         copy(items = items.toMutableList().apply { remove(item) })
+
+    fun activateItem(item: Item): ShoppingList {
+        val activeItem = item.copy(isCompleted = false)
+        return copy(items = items.replace(activeItem))
+    }
 
     fun completeItem(item: Item): ShoppingList {
         val completedItem = item.copy(isCompleted = true)
@@ -31,6 +32,8 @@ data class ShoppingList(
         val renamedItem = item.copy(name = newName)
         return copy(items = items.replace(renamedItem))
     }
+
+    fun isNotEmpty(): Boolean = name.isNotEmpty() && items.isNotEmpty()
 
     data class Item(
         val id: String = UUID.randomUUID().toString(),

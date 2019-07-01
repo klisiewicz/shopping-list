@@ -17,7 +17,7 @@ class ShoppingListViewModel(
         value = ShoppingListLoading
     }
     val viewState: LiveData<ShoppingListViewState> = _viewState
-    var filter: ShoppingList.Filter = ShoppingList.Filter.ALL
+    var filter: ShoppingList.Filter = ShoppingList.Filter.ACTIVE
 
     fun loadShoppingLists() {
         viewModelScope.launch {
