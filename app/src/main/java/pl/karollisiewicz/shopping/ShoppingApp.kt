@@ -5,6 +5,8 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 import pl.karollisiewicz.shopping.di.appModule
+import pl.karollisiewicz.shopping.di.dataModule
+import pl.karollisiewicz.shopping.di.databaseModule
 
 class ShoppingApp : Application() {
     override fun onCreate() {
@@ -12,7 +14,7 @@ class ShoppingApp : Application() {
         startKoin {
             androidLogger()
             androidContext(this@ShoppingApp)
-            modules(appModule)
+            modules(listOf(appModule, dataModule, databaseModule))
         }
     }
 }

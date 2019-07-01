@@ -3,10 +3,8 @@ package pl.karollisiewicz.shopping.ui.list.item
 import android.graphics.Paint
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.widget.AppCompatCheckBox
 import androidx.appcompat.widget.AppCompatEditText
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.list_item_shopping_item.view.*
@@ -96,38 +94,33 @@ private class ShoppingListItemViewHolder(
         }
     }
 
-    private fun View.bindName(item: ShoppingList.Item) {
-        name.setText(item.name)
-        name.setOnFocusChangeListener { _, hasFocus ->
-            if (!hasFocus)
-                onRenamed(item, name.text.toString())
-        }
-        if (item.isCompleted) name.strikeThrough()
-        else name.clearStrikeThrough()
-        if (item.name.isEmpty()) name.requestFocusAndShowKeyboard()
-    }
-
-    private fun View.bindCompletedCheckbox(item: ShoppingList.Item) {
-        completed.clearOnCheckedChangeListener()
-        completed.isChecked = item.isCompleted
-        completed.setOnCheckedChangeListener { _, isChecked ->
-            onCompleted(item, isChecked)
+    private fun bindName(item: ShoppingList.Item) {
+        with(itemView.name) {
+            setText(item.name)
+            setOnFocusChangeListener { _, hasFocus ->
+                if (!hasFocus)
+                    onRenamed(item, text.toString())
+            }
+            if (item.isCompleted) strikeThrough()
+            else clearStrikeThrough()
         }
     }
 
-    private fun View.setOnRemoveClickListener(item: ShoppingList.Item) {
-        removeButton.setOnClickListener {
+    private fun bindCompletedCheckbox(item: ShoppingList.Item) {
+        with (itemView.completed) {
+            clearOnCheckedChangeListener()
+            isChecked = item.isCompleted
+            setOnCheckedChangeListener { _, isChecked ->
+                onCompleted(item, isChecked)
+            }
+        }
+    }
+
+    private fun setOnRemoveClickListener(item: ShoppingList.Item) {
+        itemView.removeButton.setOnClickListener {
             onRemoved(item)
         }
     }
-}
-
-private fun AppCompatEditText.requestFocusAndShowKeyboard() {
-    requestFocus()
-    getSystemService(context, InputMethodManager::class.java)?.showSoftInput(
-        this,
-        InputMethodManager.SHOW_IMPLICIT
-    )
 }
 
 private fun AppCompatEditText.strikeThrough() {

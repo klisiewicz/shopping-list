@@ -5,5 +5,5 @@ interface ShoppingListRepository {
 
     suspend fun findBy(id: String): ShoppingList?
 
-    suspend fun save(shoppingList: ShoppingList): ShoppingList
+    suspend fun save(shoppingList: ShoppingList)
 }

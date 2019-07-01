@@ -8,12 +8,11 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import pl.karollisiewicz.shopping.domain.ShoppingList
 import pl.karollisiewicz.shopping.domain.ShoppingListRepository
-import java.util.*
 
 class ShoppingListDetailViewModel(
     private val shoppingListRepository: ShoppingListRepository
 ) : ViewModel() {
-    private var shoppingList: ShoppingList = ShoppingList(id = UUID.randomUUID().toString())
+    private var shoppingList: ShoppingList = ShoppingList()
 
     private val _viewState = MutableLiveData<ShoppingListDetailViewState>().apply {
         value = ShoppingListDetailViewState.Loading
@@ -32,7 +31,7 @@ class ShoppingListDetailViewModel(
     }
 
     fun rename(newName: Editable?) = viewModelScope.launch {
-        performAction {
+        performAndSave {
             shoppingList.rename(newName.toString())
         }
     }
@@ -42,46 +41,45 @@ class ShoppingListDetailViewModel(
     }
 
     fun add(item: ShoppingList.Item) = viewModelScope.launch {
-        performAction {
+        performAndSave {
             shoppingList.addItem(item)
         }
     }
 
     fun rename(item: ShoppingList.Item, newName: String) = viewModelScope.launch {
         if (newName.isEmpty()) {
-            performAction {
+            performAndSave {
                 shoppingList.removeItem(item)
             }
         } else if (item.name != newName) {
-            performAction {
+            performAndSave {
                 shoppingList.renameItem(item, newName)
             }
         }
     }
 
     fun complete(item: ShoppingList.Item) = viewModelScope.launch {
-        performAction {
+        performAndSave {
             shoppingList.completeItem(item)
         }
     }
 
     fun activate(item: ShoppingList.Item) = viewModelScope.launch {
-        performAction {
+        performAndSave {
             shoppingList.activate(item)
         }
     }
 
     fun remove(item: ShoppingList.Item) = viewModelScope.launch {
-        performAction {
+        performAndSave {
             shoppingList.removeItem(item)
         }
     }
 
-    private suspend fun performAction(block: () -> ShoppingList) {
+    private suspend fun performAndSave(block: () -> ShoppingList) {
         _viewState.value = ShoppingListDetailViewState.Loading
         shoppingList = block()
-        shoppingList = shoppingListRepository.save(shoppingList)
         _viewState.value = ShoppingListDetailViewState.Loaded(shoppingList)
-
+        shoppingListRepository.save(shoppingList)
     }
 }

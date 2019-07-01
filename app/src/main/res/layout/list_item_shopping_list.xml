@@ -13,9 +13,17 @@
     android:paddingBottom="@dimen/list_item_padding">
 
     <TextView
-        android:id="@+id/name"
+        android:id="@+id/shoppingListName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
-        tools:text="Shopping list Name" />
+        tools:text="Biedronka" />
+
+    <TextView
+        android:id="@+id/shoppingListActiveItems"
+        android:layout_margin="@dimen/list_item_padding"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+        tools:text="majonez, cebula, buraki, kaszanka, mydło, powidło" />
 </LinearLayout>

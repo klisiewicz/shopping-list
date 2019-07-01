@@ -9,6 +9,7 @@
     <string name="shopping_list_filter">Filter</string>
     <string name="shopping_list_name_hint">Name</string>
     <string name="no_shopping_lists">There are no shopping lists</string>
+    <string name="shopping_list_item_no_active">No active items</string>
     <string name="shopping_list_new_item_hint">New Item</string>
     <string name="unknown_error">Ooops! Something went wrong…</string>
     <string name="retry">Retry</string>

@@ -3,7 +3,7 @@ package pl.karollisiewicz.shopping.domain
 import java.util.*
 
 data class ShoppingList(
-    val id: String? = null,
+    val id: String = UUID.randomUUID().toString(),
     val name: String = "",
     val isActive: Boolean = true,
     val items: List<Item> = emptyList()
@@ -33,11 +33,11 @@ data class ShoppingList(
     }
 
     data class Item(
-        val id: String? = UUID.randomUUID().toString(),
+        val id: String = UUID.randomUUID().toString(),
         val name: String = "",
         val isCompleted: Boolean = false
     ) {
-        val isNotEmpty: Boolean = name.isNotEmpty()
+        val isNotCompleted: Boolean = !isCompleted
     }
 
     enum class Filter {

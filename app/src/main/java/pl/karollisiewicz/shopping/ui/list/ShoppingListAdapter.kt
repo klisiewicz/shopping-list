@@ -7,13 +7,12 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.list_item_shopping_list.view.*
 import pl.karollisiewicz.shopping.R
-import pl.karollisiewicz.shopping.domain.ShoppingList
 import pl.karollisiewicz.shopping.ui.common.inflate
 
 class ShoppingListAdapter(
-    private val shoppingListSelectionListener: ((ShoppingList) -> Unit) = {}
+    private val shoppingListSelectionListener: ((ShoppingListViewEntity) -> Unit) = {}
 ) :
-    ListAdapter<ShoppingList, ShoppingListAdapter.ViewHolder>(ShoppingListDiff) {
+    ListAdapter<ShoppingListViewEntity, ShoppingListAdapter.ViewHolder>(ShoppingListDiff) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
         ViewHolder(
@@ -26,25 +25,34 @@ class ShoppingListAdapter(
 
     class ViewHolder(
         itemView: View,
-        private val shoppingListSelectionListener: ((ShoppingList) -> Unit)
+        private val shoppingListSelectionListener: ((ShoppingListViewEntity) -> Unit)
     ) :
         RecyclerView.ViewHolder(itemView) {
 
-        fun bindTo(shoppingList: ShoppingList) {
+        fun bindTo(shoppingList: ShoppingListViewEntity) {
             with(itemView) {
-                name.text = shoppingList.name
+                shoppingListName.text = shoppingList.name
+                shoppingListActiveItems.text = shoppingList.getActiveItemsText()
                 setOnClickListener {
                     shoppingListSelectionListener(shoppingList)
                 }
             }
         }
+
+        private fun ShoppingListViewEntity.getActiveItemsText() =
+            if (activeItems.isNotEmpty()) activeItems
+            else itemView.resources.getString(R.string.shopping_list_item_no_active)
     }
 
-    private object ShoppingListDiff : DiffUtil.ItemCallback<ShoppingList>() {
-        override fun areItemsTheSame(oldItem: ShoppingList, newItem: ShoppingList) =
-            oldItem.id == newItem.id
+    private object ShoppingListDiff : DiffUtil.ItemCallback<ShoppingListViewEntity>() {
+        override fun areItemsTheSame(
+            oldItem: ShoppingListViewEntity,
+            newItem: ShoppingListViewEntity
+        ) = oldItem.id == newItem.id
 
-        override fun areContentsTheSame(oldItem: ShoppingList, newItem: ShoppingList) =
-            oldItem == newItem
+        override fun areContentsTheSame(
+            oldItem: ShoppingListViewEntity,
+            newItem: ShoppingListViewEntity
+        ) = oldItem == newItem
     }
 }

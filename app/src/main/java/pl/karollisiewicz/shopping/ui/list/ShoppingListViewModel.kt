@@ -31,7 +31,9 @@ class ShoppingListViewModel(
     private suspend fun tryToLoadShoppingLists() {
         val shoppingLists = shoppingListRepository.findAll()
         _viewState.value =
-            if (shoppingLists.isNotEmpty()) ShoppingListLoaded(shoppingLists)
+            if (shoppingLists.isNotEmpty()) ShoppingListLoaded(shoppingLists.map {
+                it.toViewEntity()
+            })
             else ShoppingListLoadedEmpty
     }
 
@@ -39,3 +41,11 @@ class ShoppingListViewModel(
         _viewState.value = ShoppingListLoadingError(R.string.unknown_error)
     }
 }
+
+private fun ShoppingList.toViewEntity() =
+    ShoppingListViewEntity(
+        id = id.toString(),
+        name = name,
+        activeItems = items.filter { it.isNotCompleted }.joinToString(separator = ", ") { it.name },
+        numberOfCompletedItems = items.count { it.isCompleted }.toString()
+    )

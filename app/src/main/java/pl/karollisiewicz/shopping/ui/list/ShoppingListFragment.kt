@@ -13,7 +13,6 @@ import kotlinx.android.synthetic.main.fragment_shopping_list.*
 import kotlinx.android.synthetic.main.layout_error.*
 import org.koin.android.viewmodel.ext.android.viewModel
 import pl.karollisiewicz.shopping.R
-import pl.karollisiewicz.shopping.domain.ShoppingList
 import pl.karollisiewicz.shopping.ui.common.hideChildren
 import pl.karollisiewicz.shopping.ui.common.show
 
@@ -110,7 +109,7 @@ internal class ShoppingListFragment : Fragment() {
         shoppingListEmptyLayout.show()
     }
 
-    private fun showShoppingLists(shoppingLists: List<ShoppingList>) {
+    private fun showShoppingLists(shoppingLists: List<ShoppingListViewEntity>) {
         shoppingListsContent.hideChildren()
         addShoppingListFab.show()
         shoppingListsRecyclerView.show()
