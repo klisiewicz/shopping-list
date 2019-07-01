@@ -2,11 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/all"
-        android:title="@string/shopping_lists_all" />
+        android:title="@string/shopping_list_all" />
     <item
         android:id="@+id/active"
-        android:title="@string/shopping_lists_active" />
+        android:title="@string/shopping_list_active" />
     <item
         android:id="@+id/completed"
-        android:title="@string/shopping_lists_archived" />
+        android:title="@string/shopping_list_archived" />
 </menu>

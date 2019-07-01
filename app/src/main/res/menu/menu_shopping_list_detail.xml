@@ -2,8 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/shoppingListFilter"
-        android:icon="@drawable/ic_filter"
-        android:title="@string/shopping_list_filter"
+        android:id="@+id/shoppingListArchive"
+        android:icon="@drawable/ic_archive"
+        android:title="@string/shopping_list_archived"
         app:showAsAction="always" />
 </menu>

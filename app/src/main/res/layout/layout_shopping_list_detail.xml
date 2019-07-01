@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/shoppingListName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/shopping_list_name_hint"
+        android:layout_gravity="center_vertical"
+        android:background="@null"
+        android:imeOptions="flagNoExtractUi"
+        android:inputType="text"
+        android:maxLines="1"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+        tools:text="Biedronka" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/shoppingListItemRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:clipToPadding="false"
+        android:scrollbars="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:context=".ui.ShoppingActivity"
+        tools:listitem="@layout/list_item_shopping_item" />
+</LinearLayout>

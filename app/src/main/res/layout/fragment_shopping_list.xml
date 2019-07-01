@@ -9,18 +9,45 @@
     <FrameLayout
         android:id="@+id/shoppingListsContent"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/progressLayout"
+            layout="@layout/layout_progress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            tools:visibility="visible" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/shoppingLists"
+            android:id="@+id/shoppingListsRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clipToPadding="false"
             android:scrollbars="vertical"
+            android:visibility="gone"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:context=".ui.ShoppingActivity"
             tools:listitem="@layout/list_item_shopping_list"
             tools:visibility="visible" />
+
+        <include
+            android:id="@+id/shoppingListEmptyLayout"
+            layout="@layout/layout_shopping_list_empty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
+        <include
+            android:id="@+id/shoppingListErrorLayout"
+            layout="@layout/layout_error"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
     </FrameLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -29,8 +56,10 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/fab_margin"
         android:src="@drawable/ic_add"
+        android:visibility="gone"
         app:fabSize="normal"
         app:layout_anchor="@id/shoppingListsContent"
-        app:layout_anchorGravity="bottom|right|end" />
+        app:layout_anchorGravity="bottom|right|end"
+        tools:visibility="visible" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,29 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.detail.ShoppingListDetailFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <FrameLayout
         android:id="@+id/shoppingListDetailContent"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingBottom="@dimen/activity_vertical_margin">
+        android:layout_height="match_parent">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <include
+            android:id="@+id/progressLayout"
+            layout="@layout/layout_progress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            tools:visibility="visible" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/editShoppingListFab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/fab_margin"
-        android:src="@drawable/ic_edit"
-        app:fabSize="normal"
-        app:layout_anchor="@id/shoppingListDetailContent"
-        app:layout_anchorGravity="bottom|right|end" />
+        <include
+            android:id="@+id/shoppingListDetail"
+            layout="@layout/layout_shopping_list_detail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
+    </FrameLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,10 +1,15 @@
 <resources>
     <string name="app_name">Shopping List</string>
-    <string name="shopping_lists_all">All</string>
-    <string name="shopping_lists_active">Active</string>
-    <string name="shopping_lists_archived">Archived</string>
+    <string name="shopping_list_new">New Shopping List</string>
+    <string name="shopping_list_edit">Edit Shopping List</string>
+    <string name="shopping_list_details">Edit Shopping Details</string>
+    <string name="shopping_list_all">All</string>
+    <string name="shopping_list_active">Active</string>
+    <string name="shopping_list_archived">Archived</string>
     <string name="shopping_list_filter">Filter</string>
     <string name="shopping_list_name_hint">Name</string>
-    <string name="shopping_list_items_hint">Enter your tasks here.</string>
     <string name="no_shopping_lists">There are no shopping lists</string>
+    <string name="shopping_list_new_item_hint">New Item</string>
+    <string name="unknown_error">Ooops! Something went wrong…</string>
+    <string name="retry">Retry</string>
 </resources>

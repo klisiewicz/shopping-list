@@ -1,6 +1,7 @@
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
+apply plugin: "com.android.application"
+apply plugin: "kotlin-android"
+apply plugin: "kotlin-android-extensions"
+apply plugin: "androidx.navigation.safeargs.kotlin"
 
 android {
     compileSdkVersion rootProject.compileSdkVersion
@@ -26,12 +27,14 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
 
     implementation "androidx.appcompat:appcompat:$appCompatVersion"
-    implementation "androidx.core:core-ktx:$ktxVersion"
     implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
     implementation "androidx.recyclerview:recyclerview:$recyclerViewVersion"
     implementation "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
     implementation "androidx.navigation:navigation-ui-ktx:$navigationVersion"
     implementation "com.google.android.material:material:$materialVersion"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
+    implementation "org.koin:koin-android-viewmodel:$koinVersion"
 
     testImplementation "junit:junit:$jUnitVersion"
     androidTestImplementation "androidx.test:runner:$testRunnerVersion"

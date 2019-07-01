@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layoutError"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:visibility="gone"
+    tools:visibility="visible">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivError"
+        android:layout_width="128dp"
+        android:layout_height="128dp"
+        android:layout_marginTop="8dp"
+        app:srcCompat="@drawable/ic_report_problem"
+        android:tint="@color/colorAccent"
+        app:layout_constraintBottom_toTopOf="@id/tvError"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvError"
+        style="@style/TextAppearance.MaterialComponents.Body1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Ooops! Something wen wrong" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/buttonRetry"
+        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:text="@string/retry"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
