@@ -8,6 +8,8 @@ data class ShoppingList(
     val isActive: Boolean = true,
     val items: List<Item> = emptyList()
 ) {
+    val isNotActive: Boolean = !isActive
+
     fun rename(newName: String): ShoppingList = copy(name = newName)
 
     fun archive(): ShoppingList =

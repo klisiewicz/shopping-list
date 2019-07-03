@@ -6,8 +6,8 @@ sealed class ShoppingListViewState
 
 object ShoppingListLoading : ShoppingListViewState()
 
-class ShoppingListLoaded(val shoppingLists: List<ShoppingListViewEntity>) : ShoppingListViewState()
+data class ShoppingListLoaded(val shoppingLists: List<ShoppingListViewEntity>) : ShoppingListViewState()
 
 object ShoppingListLoadedEmpty : ShoppingListViewState()
 
-class ShoppingListLoadingError(@StringRes val errorMessageId: Int) : ShoppingListViewState()
+data class ShoppingListLoadingError(@StringRes val errorMessageId: Int) : ShoppingListViewState()
