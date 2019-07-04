@@ -15,6 +15,11 @@ fun ViewGroup.hideChildren() {
         getChildAt(i)?.hide()
 }
 
+infix fun View.isVisibleWhen(condition: Boolean) {
+    if (condition) show()
+    else hide()
+}
+
 fun View.show() {
     visibility = VISIBLE
 }

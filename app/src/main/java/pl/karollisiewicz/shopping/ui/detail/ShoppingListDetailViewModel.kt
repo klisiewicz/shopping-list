@@ -1,6 +1,5 @@
 package pl.karollisiewicz.shopping.ui.detail
 
-import android.text.Editable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -27,61 +26,56 @@ class ShoppingListDetailViewModel(
             }
             _viewState.value = ShoppingListDetailViewState.Loaded(shoppingList)
         }
-
     }
 
-    fun rename(newName: Editable?) = viewModelScope.launch {
-        performAndUpdate {
-            shoppingList.rename(newName.toString())
-        }
+    fun rename(newName: String) {
+        if (shoppingList.name != newName)
+            perform { shoppingList.rename(newName) }
     }
 
     fun archive() = viewModelScope.launch {
-        if (shoppingList.isActive)
+        if (shoppingList.isActive) {
             performAndUpdate { shoppingList.archive() }
-    }
-
-    fun add(item: ShoppingList.Item) = viewModelScope.launch {
-        performAndUpdate {
-            shoppingList.addItem(item)
+            save()
         }
     }
 
-    fun rename(item: ShoppingList.Item, newName: String) = viewModelScope.launch {
-        if (newName.isEmpty()) {
-            performAndUpdate {
-                shoppingList.removeItem(item)
-            }
-        } else if (item.name != newName) {
-            performAndUpdate {
-                shoppingList.renameItem(item, newName)
-            }
+    fun save() = viewModelScope.launch {
+        if (shoppingList.isNotEmpty()) {
+            shoppingList = shoppingList.clearEmptyItems()
+            shoppingListRepository.save(shoppingList)
         }
+    }
+
+    fun add(item: ShoppingList.Item) {
+        performAndUpdate { shoppingList.addItem(item) }
+    }
+
+    fun rename(item: ShoppingList.Item, newName: String) {
+        if (newName.isEmpty())
+            performAndUpdate { shoppingList.removeItem(item) }
+        else if (item.name != newName)
+            perform { shoppingList.renameItem(item, newName) }
     }
 
     fun complete(item: ShoppingList.Item) = viewModelScope.launch {
-        performAndUpdate {
-            shoppingList.completeItem(item)
-        }
+        performAndUpdate { shoppingList.completeItem(item) }
     }
 
-    fun activate(item: ShoppingList.Item) = viewModelScope.launch {
-        performAndUpdate {
-            shoppingList.activateItem(item)
-        }
+    fun activate(item: ShoppingList.Item) {
+        performAndUpdate { shoppingList.activateItem(item) }
     }
 
-    fun remove(item: ShoppingList.Item) = viewModelScope.launch {
-        performAndUpdate {
-            shoppingList.removeItem(item)
-        }
+    fun remove(item: ShoppingList.Item) {
+        performAndUpdate { shoppingList.removeItem(item) }
     }
 
-    private suspend fun performAndUpdate(block: () -> ShoppingList) {
-        _viewState.value = ShoppingListDetailViewState.Loading
+    private fun perform(block: () -> ShoppingList) {
+        shoppingList = block()
+    }
+
+    private fun performAndUpdate(block: () -> ShoppingList) {
         shoppingList = block()
         _viewState.value = ShoppingListDetailViewState.Loaded(shoppingList)
-        if (shoppingList.isNotEmpty())
-            shoppingListRepository.save(shoppingList)
     }
 }

@@ -35,9 +35,10 @@ class ShoppingListViewModelTest {
     fun `should emit loading state when fetching data`() {
         mainCoroutineRule.pauseDispatcher()
 
-        objectUnderTest.loadShoppingLists()
-
-        objectUnderTest.viewState.getLastValue() shouldEqual ShoppingListLoading
+        with(objectUnderTest) {
+            loadShoppingLists()
+            viewState.getLastValue() shouldEqual ShoppingListLoading
+        }
     }
 
     @Test

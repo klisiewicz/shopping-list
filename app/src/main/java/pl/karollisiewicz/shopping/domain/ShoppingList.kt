@@ -35,7 +35,11 @@ data class ShoppingList(
         return copy(items = items.replace(renamedItem))
     }
 
-    fun isNotEmpty(): Boolean = name.isNotEmpty() && items.isNotEmpty()
+    fun clearEmptyItems(): ShoppingList = copy(
+        items = items.filter { it.name.isNotBlank() }
+    )
+
+    fun isNotEmpty(): Boolean = name.isNotBlank() && items.isNotEmpty()
 
     data class Item(
         val id: String = UUID.randomUUID().toString(),

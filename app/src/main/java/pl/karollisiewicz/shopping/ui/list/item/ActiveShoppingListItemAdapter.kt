@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.list_item_shopping_item.view.*
 import pl.karollisiewicz.shopping.R
 import pl.karollisiewicz.shopping.domain.ShoppingList
+import pl.karollisiewicz.shopping.ui.common.TextChangedListenerAdapter
 import pl.karollisiewicz.shopping.ui.common.clearStrikeThrough
 import pl.karollisiewicz.shopping.ui.common.inflate
 import pl.karollisiewicz.shopping.ui.common.strikeThrough
@@ -94,10 +95,9 @@ private class ShoppingListItemViewHolder(
     private fun bindName(item: ShoppingList.Item) {
         with(itemView.name) {
             setText(item.name)
-            setOnFocusChangeListener { _, hasFocus ->
-                if (!hasFocus)
-                    onRenamed(item, text.toString())
-            }
+            addTextChangedListener(TextChangedListenerAdapter {
+                onRenamed(item, it.toString())
+            })
             if (item.isCompleted) strikeThrough()
             else clearStrikeThrough()
         }

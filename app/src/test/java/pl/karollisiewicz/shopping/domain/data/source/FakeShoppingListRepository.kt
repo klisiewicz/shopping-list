@@ -31,8 +31,8 @@ class FakeShoppingListRepository : ShoppingListRepository {
 
     @VisibleForTesting
     fun addShoppingLists(vararg shoppingLists: ShoppingList) {
-        for (shoppingList in shoppingLists) {
-            this.shoppingLists[shoppingList.id] = shoppingList
+        shoppingLists.forEach {
+            this.shoppingLists[it.id] = it
         }
     }
 }

@@ -16,6 +16,10 @@
         android:id="@+id/shoppingListDetailFragment"
         android:name="pl.karollisiewicz.shopping.ui.detail.ShoppingListDetailFragment"
         android:label="{title}">
+        <action
+            android:id="@+id/actionShoppingDetailToList"
+            app:destination="@id/shoppingListFragment"
+            app:popUpTo="@+id/shoppingListFragment"/>
         <argument
             android:name="shoppingListId"
             app:argType="string"
